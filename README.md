@@ -5,6 +5,7 @@ The algorithm takes a screenshot each second and detects available champion from
 ## How do I make it works ?
 You will have to install Python 3 in order to make it start.
 You can download it [here.](https://www.python.org/downloads/)
+Start it using the following command: `./ocr_tft.py Champion1 Champion2 Champion3 ...`
 
 ## Is it detectable ?
 Yes, because of the inhuman reaction (~ 0.2 second) between a reroll, analyze of the champion pool and click(s). Putting a longer timer is counterproductive, just play the game instead.
