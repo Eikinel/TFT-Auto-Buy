@@ -12,7 +12,12 @@ import re
 
 
 def getChampions():
-    file = open('champions.txt', 'r')
+    try:
+        file = open('champions.txt', 'r')
+    except FileNotFoundError:
+        print("[ERROR] Cannot find 'champions.txt' file", file=sys.stderr)
+        raise FileNotFoundError
+
     champions = [c for c in file.read().split('\n')]
     file.close()
 
@@ -26,9 +31,14 @@ def transformImage(roi):
     # Convert image to grayscale and invert colors
     return ImageOps.invert(roi.convert('L'))
 
+
 def main():
     # Retrieve champions list
-    allChampions = getChampions()
+    try:
+        allChampions = getChampions()
+    except FileNotFoundError:
+        return
+    
     selectedChampions = sys.argv[1:]
     print("Selected champions: ", selectedChampions)
 
@@ -40,16 +50,19 @@ def main():
     coordinates = (left, top, right, bottom)
     panelWidth, panelHeight = ((right - left) / 5, bottom - top)
 
-    end = 0
-    tick = 0
+    # Time handling
+    dt = end = tick = 0
 
+    # Main loop
     while config.isRunning:
         dt = timer() - end
         end = timer()
         tick = tick + dt
 
+        # Process detection logic every maxCallsSeconds, as much
         if not config.isPaused and tick >= 1 / config.maxCallsPerSecond:
             tick = 0
+
             # Take a screenshot and apply transformations to pixels
             roi = transformImage(takeScreenshotROI(coordinates))
 
@@ -63,6 +76,7 @@ def main():
             if matches:
                 print("These champions are on your wishlist: ", matches)
 
+                # Click on each matching panel
                 for match in matches:
                     x, y = (int(left + panelWidth / 2 + (panelWidth * availableChampions.index(match))), int(top - panelHeight / 2))
                     print("Moving mouse to location [", x, " ; ", y, "]")

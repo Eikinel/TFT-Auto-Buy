@@ -11,12 +11,12 @@ def toggle():
     global isPaused
 
     isPaused = not isPaused
-    print("\nProgram is now " + ("paused" if isPaused else "active") + "\n")
+    print("\nProgram is now " + ("paused" if isPaused else "active"))
 
 def stop():
     global isRunning
 
-    print("\nShutdown\n")
+    print("\nShutdown")
     isRunning = False
 
 shortcuts = {

@@ -14,8 +14,8 @@ def onKeyPressed(key):
         current = [k for k in config.keys if config.keys[k]]
         
         # Iterate through shortcuts keys and get if all pressed key match it
-        ss = [s for s in config.shortcuts if set(s) == set(current)]
-        [config.shortcuts[s]() for s in ss]
+        s = [s for s in config.shortcuts if set(s) == set(current)]
+        if s: config.shortcuts[s[0]]()
 
 def onKeyReleased(key):
     try:
