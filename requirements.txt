@@ -1,0 +1,4 @@
+Pillow
+pyscreenshot
+pytesseract
+pyautogui

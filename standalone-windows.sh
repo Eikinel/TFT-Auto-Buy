@@ -6,7 +6,7 @@ OWNER='eikinel'
 SRC_DIR='dist'
 DEST_DIR='Standalone'
 
-sudo docker run -v "$(pwd):/src/" cdrx/pyinstaller-windows:python3 "pyinstaller --onefile $SCRIPT --name=$NAME";
+sudo docker run -v "$(pwd):/src/" cdrx/pyinstaller-windows:python3 "pip install -r requirements.txt && pyinstaller --onefile $SCRIPT --name=$NAME";
 
 #sudo chown $OWNER:$OWNER dist/$NAME;
 #echo "Owner set to $OWNER:$OWNER"
