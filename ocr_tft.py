@@ -5,6 +5,7 @@ from timeit import default_timer as timer   # Time management
 import pyscreenshot             # Screenshot tool, PIL friendly
 import pytesseract              # OCR
 import pyautogui                # Mouse control
+import platform                # Behaviors control for each OS
 import keyboard                 # Keyboard management
 import config                   # Config file
 import sys
@@ -33,13 +34,18 @@ def transformImage(roi):
 
 
 def main():
+    os = platform.system()
     # Retrieve champions list
     try:
         allChampions = getChampions()
     except FileNotFoundError:
         return
     
-    selectedChampions = sys.argv[1:]
+    if os == "Windows":
+        selectedChampions = [c for c in input("Select your champions (ex: Lissandra Garen Evelynn) > ").split(' ') if c]
+    else:
+        selectedChampions = sys.argv[1:]
+    
     print("Selected champions: ", selectedChampions)
 
     # Get screen's width/height
@@ -52,6 +58,9 @@ def main():
 
     # Time handling
     dt = end = tick = 0
+    config.isRunning = True
+
+    print("Starting main loop")
 
     # Main loop
     while config.isRunning:

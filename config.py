@@ -3,7 +3,7 @@
 from pynput.keyboard import Key
 
 # Program states
-isRunning = True
+isRunning = False
 isPaused = True
 maxCallsPerSecond = 1
 
