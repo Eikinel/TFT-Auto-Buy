@@ -41,9 +41,14 @@ def main():
     except FileNotFoundError:
         return
     
+
     if os == "Windows":
         selectedChampions = [c for c in input("Select your champions (ex: Lissandra Garen Evelynn) > ").split(' ') if c]
+        pytesseract.pytesseract.tesseract_cmd = "C:\\Program Files (x86)\\Tesseract-OCR\\tesseract"
     else:
+        if len(sys.argv) < 2:
+            print("Please provide at least one character. A list of characters is available on 'champions.txt' file.")
+            return
         selectedChampions = sys.argv[1:]
     
     print("Selected champions: ", selectedChampions)
